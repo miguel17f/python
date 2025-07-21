@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Horário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-4">
+	<h2 class="mb-4">Editar Horário de {{ funcionario_nome }}</h2>
+    <form method="POST" class="bg-white p-4 rounded shadow-sm">
+
+        <div class="mb-3">
+            <label for="cliente" class="form-label">Cliente</label>
+            <select name="cliente" id="cliente" class="form-select" required>
+                {% for c in clientes %}
+                    <option value="{{ c[0] }}" {% if c[0] == horario[1] %}selected{% endif %}>{{ c[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="dia" class="form-label">Dia da Semana</label>
+            <select name="dia" id="dia" class="form-select" required>
+                {% for d in ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'] %}
+                    <option {% if d == horario[2] %}selected{% endif %}>{{ d }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="hora_inicio" class="form-label">Hora Início</label>
+            <input type="time" name="hora_inicio" id="hora_inicio" class="form-control" value="{{ horario[3] }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="hora_fim" class="form-label">Hora Fim</label>
+            <input type="time" name="hora_fim" id="hora_fim" class="form-control" value="{{ horario[4] }}" required>
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar Alterações</button>
+		<a href="{{ url_for('ver_horario_funcionario', funcionario_id=user_id) }}" class="btn btn-outline-secondary">Cancelar</a>
+
+
+    </form>
+</div>
+</body>
+</html>

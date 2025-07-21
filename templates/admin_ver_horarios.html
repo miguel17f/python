@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Todos os Horários</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-4">
+    <h2 class="mb-4">Todos os Horários</h2>
+    <table class="table table-bordered bg-white shadow-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Dia</th>
+                <th>Início</th>
+                <th>Fim</th>
+                <th>Cliente</th>
+                <th>Serviço</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for h in horarios %}
+            <tr>
+                <td>{{ h[1] }}</td> <!-- Dia -->
+                <td>{{ h[2] }}</td> <!-- Início -->
+                <td>{{ h[3] }}</td> <!-- Fim -->
+                <td>{{ h[4] }}</td> <!-- Cliente -->
+                <td>{{ h[5] }}</td> <!-- Serviço -->
+				<td>
+					<form method="POST" action="{{ url_for('remover_horario', horario_id=h[0]) }}" style="display:inline-block;" onsubmit="return confirm('Tens a certeza que queres remover este horário?')">
+						<button type="submit" class="btn btn-sm btn-danger">Remover</button>
+					</form>
+					<a href="{{ url_for('editar_horario', horario_id=h[0]) }}" class="btn btn-sm btn-warning ms-2">Editar</a>
+				</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary mt-3">← Voltar ao Painel</a>
+</div>
+</body>
+</html>
